@@ -18,21 +18,20 @@ const slides = [
   },
 ];
 
-//ARROWS------------------------------
+console.log("coucou");
 
-const arrowLeft = document.getElementById("arrow-left");
+for (let i = 0; i < slides.length; i++) {
+  const objet = slides[i];
 
-arrowLeft.addEventListener("click", () => {
-  console.log("Vous avez cliqué sur la flèche gauche");
-});
+  console.log(objet.image);
+  console.log(objet.tagLine);
 
-const arrowRight = document.getElementById("arrow-right");
+  if(i==0){
+    console.log("premier")
+  }
 
-arrowRight.addEventListener("click", () => {
-  console.log("Vous avez cliqué sur la flèche droite");
-});
+  if(i==slides.length -1){
 
-
-const dots = document.querySelectorAll(".dot");
-console.log("okiiii")
-
+    console.log("dernier")
+  }
+}
