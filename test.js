@@ -35,3 +35,5 @@ for (let i = 0; i < slides.length; i++) {
     console.log("dernier")
   }
 }
+
+

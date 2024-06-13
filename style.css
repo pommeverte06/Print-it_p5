@@ -206,7 +206,7 @@ header {
   position: absolute;
 }
 /* interactives arrows------------------------- */
-#banner #arrow-left {
+#banner #arrow-left{
   left: 10px;
   position: absolute;
   cursor: pointer;
@@ -215,7 +215,7 @@ header {
   right: 10px;
   position: absolute;
   cursor: pointer;
-}
+}  
 
 /* stop interactives arrows -------------------------------*/
 
