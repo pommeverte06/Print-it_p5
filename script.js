@@ -1,3 +1,5 @@
+// tableau contenant 4 objet correspondants aux 4 diapos et textes du carousel
+
 const slides = [
   {
     image: "slide1.jpg",
@@ -18,64 +20,96 @@ const slides = [
   },
 ];
 
-let currentIndiceSlide = 0; //premiere slide du carousel
 
-const dots = document.querySelectorAll(".dot");
 
-const image = document.querySelector(".banner-img");
-console.log(image);
 
-const tagLine = document.querySelector("#banner p");
-console.log(tagLine);
 
-//ARROWS------------------------------
+let currentIndiceSlide = 0; //indice de la slide actuellemnt affichée du carousel
 
+const dots = document.querySelectorAll(".dot"); // récupération de tous les dots du carousel
+
+const image = document.querySelector(".banner-img"); // récup banner-img pour les diapos
+
+const tagLine = document.querySelector("#banner p"); // récup texte tagline pour les diapos
+
+//récupération des flèches de défilement entre les diapos
 const arrowLeft = document.getElementById("arrow-left");
 const arrowRight = document.getElementById("arrow-right");
 
-function showImageAndBullet(direction) {
-  //afficher objet du tableau slides
-  let operation = 1;
+
+
+
+
+
+// fonction pour changer diapos, texte et dot en fonction de la direction
+
+function changeImageAndBullet(direction) {
+  //nom de la fonction et nom du parametre
+  let operation = 1; //variable qui initialise à 1
   if (direction == "right") {
-    operation = -1;
+    //condition si direction égale à right
+    operation = -1; //alors direction recule d'une image
   }
+  
 
-  const objet = slides[currentIndiceSlide];
-  const dotPrevious = dots[currentIndiceSlide + operation];
-  const dot = dots[currentIndiceSlide];
+  const objet = slides[currentIndiceSlide]; //variable qui recupere indice de la diapo actuelle
 
-  dot.classList.add("dot-selected");
-  dotPrevious.classList.remove("dot-selected");
-  console.log(objet);
-  console.log(objet.image);
-  console.log(objet.tagLine);
-  console.log(dot);
+  const activeDot = dots[currentIndiceSlide + operation]; //dot qui recupere l'indice actuel
+
+  console.log(currentIndiceSlide, operation, currentIndiceSlide + operation);
+
+  // et ajoute la valeur de l'operation pour actualiser le dot
+  const dot = dots[currentIndiceSlide]; //recupere indice point actuel
+
+  dot.classList.add("dot-selected"); //ajoute la classe CSS pour modifier la couleur du dot actuel
+  activeDot.classList.remove("dot-selected"); //ote la classe CSS
+
+  tagLine.innerHTML = objet.tagLine; //insere le texte des tagline en fonction des diapos
+  image.src = `images/slideshow/${slides[currentIndiceSlide].image}`;//insere les photos
+
 }
 
-arrowLeft.addEventListener("click", () => {
-  if (currentIndiceSlide == 0) {
-    currentIndiceSlide = slides.length - 1;
-  } else {
-    currentIndiceSlide -= 1;
-  }
-  console.log(currentIndiceSlide);
-  showImageAndBullet("left");
-});
+
+
+
+
+
+
+
+
+
 
 arrowRight.addEventListener("click", () => {
-  currentIndiceSlide += 1;
+  //ecoute le clic sur la fléche droite
+  currentIndiceSlide += 1; //augmente l'indice actuel à 1 au clic
 
   if (currentIndiceSlide < slides.length) {
-    console.log(currentIndiceSlide);
+    //si l'indice actuel est inf à la longueur du tableau
+
+    
   } else {
-    currentIndiceSlide = 0;
-    console.log(currentIndiceSlide);
+    //sinon
+
+  currentIndiceSlide = 0; //reste a l'indice actuel
   }
-  showImageAndBullet("right");
+  changeImageAndBullet("right"); // appel de la fonction pour changer txte img et diapos au clic
 });
 
-//LES DOTS
 
-for (let i = 0; i < dots.length; i++) {
-  console.log(dots[i]);
-}
+// let operation=1;
+
+
+
+
+
+arrowLeft.addEventListener("click", () => {
+  //ecoute le clic sur la fleche gauche
+  if (currentIndiceSlide == 0) {
+    ////si l'indice actuel egal 0
+    currentIndiceSlide = slides.length - 1; //alors indice actuel vaut longueur du tableau-1 diapo
+  } else {
+    //sinon
+    currentIndiceSlide -= 1; //rien ne se passe
+  }
+  changeImageAndBullet("left"); //appel de la fonction pour changer txte img et diapos au clic
+});
