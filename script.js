@@ -1,4 +1,5 @@
-// tableau contenant 4 objet correspondants aux 4 diapos et textes du carousel
+//
+//tableau contenant 4 objet correspondants aux 4 diapos et textes du carousel
 
 const slides = [
   {
@@ -20,96 +21,49 @@ const slides = [
   },
 ];
 
-
-
-
-
-let currentIndiceSlide = 0; //indice de la slide actuellemnt affichée du carousel
+let currentIndiceSlide = 0; // indice de la slide actuellement affichée du carousel
 
 const dots = document.querySelectorAll(".dot"); // récupération de tous les dots du carousel
-
 const image = document.querySelector(".banner-img"); // récup banner-img pour les diapos
-
 const tagLine = document.querySelector("#banner p"); // récup texte tagline pour les diapos
 
-//récupération des flèches de défilement entre les diapos
+// récupération des flèches de défilement entre les diapos
 const arrowLeft = document.getElementById("arrow-left");
 const arrowRight = document.getElementById("arrow-right");
 
+// fonction pour changer diapos, textes et dots en fonction de la direction
+function changeImageAndBullet() {
+  const objet = slides[currentIndiceSlide]; // variable qui recupere la nouvelle diapo
 
+  dots.forEach(function (dot) {
+    dot.classList.remove("dot-selected"); //retire la classe
+  });
 
+  dots[currentIndiceSlide].classList.add("dot-selected"); //ajoute la classe
 
-
-
-// fonction pour changer diapos, texte et dot en fonction de la direction
-
-function changeImageAndBullet(direction) {
-  //nom de la fonction et nom du parametre
-  let operation = 1; //variable qui initialise à 1
-  if (direction == "right") {
-    //condition si direction égale à right
-    operation = -1; //alors direction recule d'une image
-  }
-  
-
-  const objet = slides[currentIndiceSlide]; //variable qui recupere indice de la diapo actuelle
-
-  const activeDot = dots[currentIndiceSlide + operation]; //dot qui recupere l'indice actuel
-
-  console.log(currentIndiceSlide, operation, currentIndiceSlide + operation);
-
-  // et ajoute la valeur de l'operation pour actualiser le dot
-  const dot = dots[currentIndiceSlide]; //recupere indice point actuel
-
-  dot.classList.add("dot-selected"); //ajoute la classe CSS pour modifier la couleur du dot actuel
-  activeDot.classList.remove("dot-selected"); //ote la classe CSS
-
-  tagLine.innerHTML = objet.tagLine; //insere le texte des tagline en fonction des diapos
-  image.src = `images/slideshow/${slides[currentIndiceSlide].image}`;//insere les photos
-
+  tagLine.innerHTML = objet.tagLine; // insère le texte des tagline en fonction des diapos
+  image.src = `images/slideshow/${objet.image}`; // change l'image au clic
 }
 
-
-
-
-
-
-
-
-
-
+// 'images/slideshow/'+objet.image; //concatenation
 
 arrowRight.addEventListener("click", () => {
-  //ecoute le clic sur la fléche droite
-  currentIndiceSlide += 1; //augmente l'indice actuel à 1 au clic
-
-  if (currentIndiceSlide < slides.length) {
-    //si l'indice actuel est inf à la longueur du tableau
-
-    
-  } else {
-    //sinon
-
-  currentIndiceSlide = 0; //reste a l'indice actuel
+  // écoute le clic sur la flèche droite
+  currentIndiceSlide += 1; // augmente l'indice actuel de 1 au clic
+  if (currentIndiceSlide >= slides.length) {
+    //si l'indice est sup/egal longueur slides
+    currentIndiceSlide = 0; // revient à la première diapo si dépasse la dernière
   }
-  changeImageAndBullet("right"); // appel de la fonction pour changer txte img et diapos au clic
+  changeImageAndBullet(); // appel de la fonction pour changer texte, image et diapos au clic
 });
 
-
-// let operation=1;
-
-
-
-
-
 arrowLeft.addEventListener("click", () => {
-  //ecoute le clic sur la fleche gauche
+  // écoute le clic sur la flèche gauche
   if (currentIndiceSlide == 0) {
-    ////si l'indice actuel egal 0
-    currentIndiceSlide = slides.length - 1; //alors indice actuel vaut longueur du tableau-1 diapo
+    //si l'indice actuel egale 0
+    currentIndiceSlide = slides.length - 1; // revient à la dernière diapo si dépasse la première
   } else {
-    //sinon
-    currentIndiceSlide -= 1; //rien ne se passe
+    currentIndiceSlide -= 1; // diminue l'indice actuel de 1
   }
-  changeImageAndBullet("left"); //appel de la fonction pour changer txte img et diapos au clic
+  changeImageAndBullet(); // appel de la fonction pour changer texte, image et diapos au clic
 });
