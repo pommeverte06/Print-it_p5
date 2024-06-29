@@ -21,49 +21,45 @@ const slides = [
   },
 ];
 
-let currentIndiceSlide = 0; // indice de la slide actuellement affichée du carousel
+//variables
 
-const dots = document.querySelectorAll(".dot"); // récupération de tous les dots du carousel
-const image = document.querySelector(".banner-img"); // récup banner-img pour les diapos
-const tagLine = document.querySelector("#banner p"); // récup texte tagline pour les diapos
+let currentIndiceSlide = 0;
 
-// récupération des flèches de défilement entre les diapos
+const dots = document.querySelectorAll(".dot");
+const image = document.querySelector(".banner-img");
+const tagLine = document.querySelector("#banner p");
+
 const arrowLeft = document.getElementById("arrow-left");
 const arrowRight = document.getElementById("arrow-right");
 
-// fonction pour changer diapos, textes et dots en fonction de la direction
+// FONCTION pour changer diapos, textes et dots en fonction de la direction droite ou gauche
 function changeImageAndBullet() {
-  const objet = slides[currentIndiceSlide]; // variable qui recupere la nouvelle diapo
+  const objet = slides[currentIndiceSlide];
 
   dots.forEach(function (dot) {
-    dot.classList.remove("dot-selected"); //retire la classe
+    dot.classList.remove("dot-selected");
   });
 
-  dots[currentIndiceSlide].classList.add("dot-selected"); //ajoute la classe
+  dots[currentIndiceSlide].classList.add("dot-selected");
 
-  tagLine.innerHTML = objet.tagLine; // insère le texte des tagline en fonction des diapos
+  tagLine.innerHTML = objet.tagLine; // change le texte des tagline en fonction des diapos
   image.src = `images/slideshow/${objet.image}`; // change l'image au clic
 }
 
-// 'images/slideshow/'+objet.image; //concatenation
-
+//Ecouteurs d'évènements sur les flèches de navigation
 arrowRight.addEventListener("click", () => {
-  // écoute le clic sur la flèche droite
-  currentIndiceSlide += 1; // augmente l'indice actuel de 1 au clic
+  currentIndiceSlide += 1;
   if (currentIndiceSlide >= slides.length) {
-    //si l'indice est sup/egal longueur slides
-    currentIndiceSlide = 0; // revient à la première diapo si dépasse la dernière
+    currentIndiceSlide = 0;
   }
-  changeImageAndBullet(); // appel de la fonction pour changer texte, image et diapos au clic
+  changeImageAndBullet();
 });
 
 arrowLeft.addEventListener("click", () => {
-  // écoute le clic sur la flèche gauche
   if (currentIndiceSlide == 0) {
-    //si l'indice actuel egale 0
-    currentIndiceSlide = slides.length - 1; // revient à la dernière diapo si dépasse la première
+    currentIndiceSlide = slides.length - 1;
   } else {
-    currentIndiceSlide -= 1; // diminue l'indice actuel de 1
+    currentIndiceSlide -= 1;
   }
-  changeImageAndBullet(); // appel de la fonction pour changer texte, image et diapos au clic
+  changeImageAndBullet();
 });
